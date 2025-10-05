@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fashion Store Dashboard</title>
+    </head>
+<body>
+    <h1>Fashion Store Analytics</h1>
+
+    <section>
+        <h2>Sales Overview</h2>
+        <p>Total Revenue Made So Far: <strong>${{ "%.2f"|format(total_revenue) }}</strong></p>
+        <p>Total Pieces Sold So Far: <strong>{{ total_pieces_sold }}</strong></p>
+    </section>
+
+    <hr>
+
+    <section>
+        <h2>Current Inventory Status</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Price</th>
+                    <th>Still in Stock</th>
+                    <th>Action (Simulate Buy)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td>${{ "%.2f"|format(item.price) }}</td>
+                    <td>
+                        {% if item.stock_quantity <= 5 %}
+                            <strong style="color: red;">{{ item.stock_quantity }} (Low!)</strong>
+                        {% else %}
+                            {{ item.stock_quantity }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ url_for('buy_item', item_id=item.id, quantity=1) }}">Buy 1</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Fashion Store. All rights reserved. | CIS 221 Assignment</p>
+    </footer>
+
+</body>
+</html>
